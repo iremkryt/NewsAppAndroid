@@ -17,15 +17,15 @@ import com.iremkryt.newsappandroid.util.Resource
 class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
     lateinit var viewModel: NewsViewModel
     lateinit var newsAdapter: NewsAdapter
-    private lateinit var rvBreakingNews: RecyclerView
-    private lateinit var paginationProgressBar: ProgressBar
+    lateinit var rvBreakingNews: RecyclerView
+    lateinit var paginationProgressBar: ProgressBar
     val TAG = "BreakingNewsFragment"
 
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = (activity as NewsActivity).viewModel
+        viewModel = (activity as NewsActivity).newsViewModel
         setupRecyclerView()
 
         viewModel.breakingNews.observe(viewLifecycleOwner, Observer { response ->

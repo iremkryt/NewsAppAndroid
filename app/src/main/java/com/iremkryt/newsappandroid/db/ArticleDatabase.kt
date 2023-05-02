@@ -9,7 +9,7 @@ import com.iremkryt.newsappandroid.models.Article
 
 @Database(
     entities = [Article::class],
-    version = 1
+    version = 3
 )
 @TypeConverters(Converters::class)
 abstract class ArticleDatabase : RoomDatabase(){
@@ -17,18 +17,34 @@ abstract class ArticleDatabase : RoomDatabase(){
     abstract fun getArticleDao(): ArticleDao
 
     companion object{
-        @Volatile
         private var instance: ArticleDatabase? = null
-        private val LOCK = Any()
+        fun getInstance(context: Context): ArticleDatabase{
 
-        operator fun invoke(context: Context) = instance ?: synchronized(LOCK){
-            instance ?: createDatabase(context).also { instance = it }
+            if(instance == null ){
+
+                instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    ArticleDatabase::class.java,
+                    "articles"
+                ).fallbackToDestructiveMigration()
+                    .build()
+            }
+
+            return instance as ArticleDatabase
+
         }
-        private fun createDatabase(context: Context) =
-            Room.databaseBuilder(
-                context.applicationContext,
-                ArticleDatabase::class.java,
-                "article_db.db"
-            ).build()
+//        @Volatile
+//        private var instance: ArticleDatabase? = null
+//        private val LOCK = Any()
+//
+//        operator fun invoke(context: Context) = instance ?: synchronized(LOCK){
+//            instance ?: createDatabase(context).also { instance = it }
+//        }
+//        private fun createDatabase(context: Context) =
+//            Room.databaseBuilder(
+//                context.applicationContext,
+//                ArticleDatabase::class.java,
+//                "article_db.db"
+//            ).build()
     }
 }
