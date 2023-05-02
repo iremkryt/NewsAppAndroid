@@ -14,14 +14,15 @@ import com.iremkryt.newsappandroid.R
 
 class NewsActivity : AppCompatActivity() {
 
-    lateinit var navController: NavController
     val newsViewModel by viewModels<NewsViewModel>()
+    //private var navController = findNavController(R.id.newsNavHostFragment)
+
     lateinit var bottomNavigationView: BottomNavigationView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news)
 
-        navController = findNavController(R.id.newsNavHostFragment)
+        val navController = findNavController(R.id.newsNavHostFragment)
         NavigationUI.setupActionBarWithNavController(this,navController)
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
@@ -31,6 +32,7 @@ class NewsActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return NavigationUI.navigateUp(navController,null)
+        return true
+        //return NavigationUI.navigateUp(navController,null)
     }
 }
