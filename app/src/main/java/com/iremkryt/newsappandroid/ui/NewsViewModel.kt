@@ -17,19 +17,11 @@ import kotlinx.coroutines.Job
 class NewsViewModel( application:Application ): AndroidViewModel(application){
 
     private var articles: LiveData<List<Article>>? = null
-
     private val newsRepo:NewsRepository = NewsRepository(getApplication())
-
     var breakingNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
-
-
-
     var breakingNewsPage = 1
     var breakingNewsResponse: NewsResponse? = null
-
-
     var searchNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
-
     var searchNewsPage = 1
     val searchNewsResponse: NewsResponse? = null
 
@@ -45,7 +37,6 @@ class NewsViewModel( application:Application ): AndroidViewModel(application){
 
             breakingNews.postValue(handleBreakingNewsResponse(response))
         }
-
         return job
     }
 
@@ -63,11 +54,8 @@ class NewsViewModel( application:Application ): AndroidViewModel(application){
                 return Resource.Success(breakingNewsResponse?:result)
             }
         }
-
         return Resource.Error(response.message())
-
     }
-
 
     fun getSearchNews(searchQuery: String): Job {
 
@@ -77,7 +65,6 @@ class NewsViewModel( application:Application ): AndroidViewModel(application){
 
             searchNews.postValue(handleSearchNewsResponse(response))
         }
-
         return job
     }
 
@@ -87,9 +74,7 @@ class NewsViewModel( application:Application ): AndroidViewModel(application){
                 return Resource.Success(result)
             }
         }
-
         return Resource.Error(response.message())
-
     }
 
     fun upsert(article: Article) = viewModelScope.launch {
