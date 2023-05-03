@@ -34,8 +34,6 @@ class NewsActivity : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.rvBreakingNews)
         recyclerView.layoutManager = GridLayoutManager(this,1, GridLayoutManager.VERTICAL, false)
 
-        val adapter = NewsAdapter()
-        recyclerView.adapter= adapter
 
         val navController = findNavController(R.id.newsNavHostFragment)
         NavigationUI.setupActionBarWithNavController(this,navController)

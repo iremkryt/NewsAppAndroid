@@ -18,10 +18,11 @@ import com.iremkryt.newsappandroid.util.Resource
 class BreakingNewsFragment : Fragment() {
     val newsViewModel by viewModels<NewsViewModel>()
     private var paginationProgressBar: ProgressBar? = null
-    private var newsAdapter: NewsAdapter? = null
+    private var newsAdapter = NewsAdapter()
     private val TAG = "BreakingNewsFragment"
     private var _binding: FragmentBreakingNewsBinding? = null
     private val binding : FragmentBreakingNewsBinding get() = _binding!!
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,7 +43,7 @@ class BreakingNewsFragment : Fragment() {
                 is Resource.Success -> {
                     hideProgressBar()
                     response.data?.let { newsResponse ->
-                        newsAdapter?.differ?.submitList(newsResponse.articles)
+                        newsAdapter.differ.submitList(newsResponse.articles)
                         println("response ${newsResponse.articles}")
                     }
                 }
